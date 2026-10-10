@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /sorteos/{sorteoId} {
+      allow read: if request.auth != null;
+      // La app solo puede crear la cabecera (abierta) si no existe; los cambios de estado se hacen desde la consola.
+      allow create: if request.auth != null && request.resource.data.estado == 'abierto';
+      allow update, delete: if false;
+
+      // Las bolillas solo se publican desde la consola de Firebase.
+      match /bolillas/{bolillaId} {
+        allow read: if request.auth != null;
+        allow write: if false;
+      }
+
+      // Una jugada por usuario (id del documento = uid). Solo mientras el sorteo está abierto.
+      match /jugadas/{uid} {
+        allow read: if request.auth != null && request.auth.uid == uid;
+        allow create, update: if request.auth != null
+          && request.auth.uid == uid
+          && request.resource.data.uid == uid
+          && request.resource.data.sorteoId == sorteoId
+          && request.resource.data.numeros is list
+          && request.resource.data.numeros.size() == 6
+          && get(/databases/$(database)/documents/sorteos/$(sorteoId)).data.estado == 'abierto';
+        allow delete: if false;
+      }
+    }
+  }
+}
