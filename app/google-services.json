@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "116500407133",
+    "project_id": "loteria-pc01-61b20",
+    "storage_bucket": "loteria-pc01-61b20.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116500407133:android:6523ab9821a1ddc3b1beb4",
+        "android_client_info": {
+          "package_name": "pe.edu.esan.loteria"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF7gHHlwiXV5uO7VY-e15VkpuRM6qXRYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
